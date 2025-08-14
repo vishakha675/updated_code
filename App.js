@@ -29,7 +29,7 @@ const App = () => {
         tabBarShowLabel:false,
         tabBarActiveTintColor:'blue'
        }}>
-        <Tab.Screen name='HOME'component={Home}options={{tabBarIcon:({size,focused,color})=>{
+        <Tab.Screen name='HOME'component={Homescreen}options={{tabBarIcon:({size,focused,color})=>{
           return(
             // <Text>Icon</Text>
       <Ionicons name='home' size={size} color={color} />
