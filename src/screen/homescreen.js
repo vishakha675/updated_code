@@ -5,19 +5,48 @@ import React, { useState } from 'react'
 import Header from '../components/Header'
 import { Fontisto } from '@expo/vector-icons'
 import Category from '../components/Category'
-import Productcard from '../components/productcard'
+import Productcard from '../components/Productcard';
+import data from "../data/data.json";
 const categories = ["Trending Now", "All", "New", "Mens", "Woman"]
 
 const Homescreen = () => {
+  const [products,setProducts]= useState(data.products);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  
+  const handleLiked = (item)=>{
+    const newProduct = products.map((prod)=>{
+      if(prod.id === item.id){
+        return{
+          ...prod,
+          isLiked:true,
+        };
+      }
+      return prod;
+    });
+    setProducts(newProduct);
+  }
   return (
     <LinearGradient
       // Background Linear Gradient
       colors={[' rgb(199,71,138)', 'transparent']}
       style={styles.container}>
       <Header />
-      <Text style={styles.matchText}>Match Your Style</Text>
+
       {/* input container */}
+      {/* <View style={styles.inputContainer}>
+        <View style={styles.iconContainer}>
+          <Fontisto name={"search"} size={20} color={'black'} style={styles.icon}></Fontisto>
+        </View>
+        <TextInput style={styles.textinput} placeholder='Search'></TextInput>
+
+      </View> */}
+      {/* product list */}
+      <FlatList
+        numColumns={2}
+        ListHeaderComponent={
+          <>
+                <Text style={styles.matchText}>Match Your Style</Text>
+           {/* input container */}
       <View style={styles.inputContainer}>
         <View style={styles.iconContainer}>
           <Fontisto name={"search"} size={20} color={'black'} style={styles.icon}></Fontisto>
@@ -25,22 +54,30 @@ const Homescreen = () => {
         <TextInput style={styles.textinput} placeholder='Search'></TextInput>
 
       </View>
-      {/* category section */}
-      <FlatList data={categories}
-        renderItem={({ item }) => (
-          <Category
-            item={item}
-            selectedCategory={selectedCategory}
-            setSelectedCategory={setSelectedCategory} />
-        )}
-        keyExtractor={(item) => item}
-        horizontal={true}
-        showsHorizontalScrollIndicator={false} />
+            {/* category section */}
+            <FlatList data={categories}
+              renderItem={({ item }) => (
+                <Category
+                  item={item}
+                  selectedCategory={selectedCategory}
+                  setSelectedCategory={setSelectedCategory} />
+              )}
+              keyExtractor={(item) => item}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false} />
+          </>
+        }
+        data={products}
+        renderItem={({item,index})=>(
+        <Productcard
+      item={item} handleLiked={handleLiked}/>)}
+        showsVerticalScrollIndicator={false} 
+        contentContainerStyle={{
+          paddingBottom:150,
 
-      {/* product List */}
-      <View >
-        <Productcard />
-      </View>
+        }}
+        />
+      
     </LinearGradient>
 
 
@@ -52,7 +89,6 @@ export default Homescreen
 
 const styles = StyleSheet.create({
   container: {
-
     padding: 20,
   },
   matchText: {
