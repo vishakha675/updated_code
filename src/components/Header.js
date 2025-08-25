@@ -1,59 +1,34 @@
-import { StyleSheet, Text, View,Image } from 'react-native'
-import React from 'react'
-
-const Header = () => {
+import { StyleSheet, Text, View,Image, TouchableOpacity } from 'react-native'
+import React from 'react';
+import  Ionicons  from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
+const Header = ({isCart}) => {
+  const navigation =useNavigation();
   return (
-    <View style={styles.container}>
+    <TouchableOpacity 
+    onPress={()=>navigation.navigate("HOME_STACK")}
+    style={styles.container}>
       <View style={styles.iconCircle}>
-        <Image source={require("../assests/appIcon.png")}style={styles.appIcon}></Image>
+        {
+          isCart?(<Ionicons name ={"chevron-back"}
+          color={"#E96E6E"} size={24}/>)
+          :(
+          <Image 
+        source={require("../assests/appIcon.png")}
+        style={styles.appIcon}></Image>
+        )}
+        
       </View>
+      {
+        isCart && <Text style={styles.myCart}>My Cart</Text>
+      }
+      
      <Image source={require('../assests/dp.png')}style={styles.dp}></Image>
-    </View>
+    </TouchableOpacity>
   )
 }
 
 export default Header
-
-// const styles = StyleSheet.create({
-//   appIconContainer:{
-//       backgroundColor:'#ffffff',
-//       height:150,
-//       width:100,
-//       borderRadius:30,
-//       padding:20,
-//     marginLeft:20,
-//     marginTop:20
-      
-//   },
-//   appIcon:{
-//     height:100,
-//     width:50,
-//     padding:20,
-//     marginLeft:20,
-//     marginTop:20,
-//     justifyContent:'center',
-//     alignItems:'center'
-    
-    
-//   }
-// })
-// import { StyleSheet, Text, View, Image } from 'react-native';
-// import React from 'react';
-
-// const Header = () => {
-//   return (
-//     <View style={styles.headerContainer}>
-//       <Image 
-//         source={require('../assets/appIcon.png')} 
-//         style={styles.appIcon} 
-//         // resizeMode="contain"
-//       />
-//     </View>
-//   );
-// };
-
-// export default Header;
-
 const styles = StyleSheet.create({
   container:{
       flexDirection:'row',
@@ -80,6 +55,11 @@ const styles = StyleSheet.create({
     height:44,
     width:44,
     borderRadius:22,
+
+  },myCart:{
+    fontSize:28,
+    color:'black',
+    fontWeight:600
 
   }
 });

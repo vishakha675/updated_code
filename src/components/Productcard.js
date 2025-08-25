@@ -13,7 +13,7 @@ const Productcard = ({ item, handleLiked }) => {
     <View>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("PRODUCT_DETAILS");
+          navigation.navigate("PRODUCT_DETAILS",{item});
         }}
         style={styles.container}
       >

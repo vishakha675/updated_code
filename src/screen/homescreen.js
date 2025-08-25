@@ -28,20 +28,10 @@ const Homescreen = () => {
   return (
     <LinearGradient
       // Background Linear Gradient
-      colors={[' rgb(199,71,138)', 'transparent']}
+      colors={[' rgba(87, 5, 48, 1)', 'transparent']}
       style={styles.container}>
       <Header />
-
-      {/* input container */}
-      {/* <View style={styles.inputContainer}>
-        <View style={styles.iconContainer}>
-          <Fontisto name={"search"} size={20} color={'black'} style={styles.icon}></Fontisto>
-        </View>
-        <TextInput style={styles.textinput} placeholder='Search'></TextInput>
-
-      </View> */}
-      {/* product list */}
-      <FlatList
+        <FlatList
         numColumns={2}
         ListHeaderComponent={
           <>
@@ -71,7 +61,8 @@ const Homescreen = () => {
         renderItem={({item,index})=>(
         <Productcard
       item={item} handleLiked={handleLiked}/>)}
-        showsVerticalScrollIndicator={false} 
+        showsVerticalScrollIndicator={false}
+         keyExtractor={(item)=>item.id}
         contentContainerStyle={{
           paddingBottom:150,
 
